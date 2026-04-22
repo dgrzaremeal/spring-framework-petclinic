@@ -18,7 +18,6 @@ target/
 .DS_Store
 
 # Coding Agents
-.specify/
 .opencode/
 AGENTS.md
 requisitos.md
