@@ -30,6 +30,16 @@
                 <petclinic:inputField label="Birth Date" name="birthDate"/>
                 <div class="control-group">
                     <petclinic:selectField name="type" label="Type " names="${types}" size="5"/>
+                <div class="control-group">
+                    <label class="col-sm-2 control-label">Gender</label>
+                    <div class="col-sm-10">
+                        <form:select path="gender" class="form-control">
+                            <form:option value="MALE"><spring:message code="pet.gender.male"/></form:option>
+                            <form:option value="FEMALE"><spring:message code="pet.gender.female"/></form:option>
+                            <form:option value="UNKNOWN"><spring:message code="pet.gender.unknown"/></form:option>
+                        </form:select>
+                    </div>
+                </div>
                 </div>
             </div>
             <div class="form-group">

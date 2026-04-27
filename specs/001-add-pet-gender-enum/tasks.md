@@ -21,12 +21,12 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T001 Add gender column to H2 schema.sql in src/main/resources/db/h2/schema.sql
-- [ ] T001b Add gender column to HSQLDB schema.sql in src/main/resources/db/hsqldb/schema.sql
-- [ ] T002 Add gender column to MySQL schema.sql in src/main/resources/db/mysql/schema.sql
-- [ ] T003 Add gender column to PostgreSQL schema.sql in src/main/resources/db/postgresql/schema.sql
-- [ ] T004 [P] Add Gender localization keys in src/main/resources/messages.properties and ensure gender column is nullable with DEFAULT UNKNOWN in all schema.sql files (H2, MySQL, PostgreSQL)
-- [ ] T005 [P] Update seed data with gender values in src/main/resources/db/h2/data.sql
+- [x] T001 Add gender column to H2 schema.sql in src/main/resources/db/h2/schema.sql
+- [x] T001b Add gender column to HSQLDB schema.sql in src/main/resources/db/hsqldb/schema.sql
+- [x] T002 Add gender column to MySQL schema.sql in src/main/resources/db/mysql/schema.sql
+- [x] T003 Add gender column to PostgreSQL schema.sql in src/main/resources/db/postgresql/schema.sql
+- [x] T004 [P] Add Gender localization keys in src/main/resources/messages.properties and ensure gender column is nullable with DEFAULT UNKNOWN in all schema.sql files (H2, MySQL, PostgreSQL)
+- [x] T005 [P] Update seed data with gender values in src/main/resources/db/h2/data.sql
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -42,20 +42,20 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T006 [P] [US1] Create GenderTest.java for enum basic tests in src/test/java/org/springframework/samples/petclinic/model/GenderTest.java (CREATE FILE IF NOT EXISTS)
-- [ ] T007 [P] [US1] Create PetGenderTest.java for Pet gender field tests in src/test/java/org/springframework/samples/petclinic/model/PetGenderTest.java (CREATE FILE IF NOT EXISTS)
+- [x] T006 [P] [US1] Create GenderTest.java for enum basic tests in src/test/java/org/springframework/samples/petclinic/model/GenderTest.java (CREATE FILE IF NOT EXISTS)
+- [x] T007 [P] [US1] Create PetGenderTest.java for Pet gender field tests in src/test/java/org/springframework/samples/petclinic/model/PetGenderTest.java (CREATE FILE IF NOT EXISTS)
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Create Gender enum in src/main/java/org/springframework/samples/petclinic/model/Gender.java
-- [ ] T009 [US1] Add gender field to Pet.java in src/main/java/org/springframework/samples/petclinic/model/Pet.java
-- [ ] T010 [P] [US1] Add gender field to JdbcPet.java in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPet.java
-- [ ] T011 [US1] Map gender column in JdbcPetRowMapper.java in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRowMapper.java
-- [ ] T012 [US1] Handle gender in JdbcPetRepositoryImpl.java insert in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRepositoryImpl.java
-- [ ] T013 [US1] Handle gender in JpaPetRepositoryImpl.java in src/main/java/org/springframework/samples/petclinic/repository/jpa/JpaPetRepositoryImpl.java
-- [ ] T014 [US1] Handle gender in SpringDataPetRepository.java in src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataPetRepository.java
-- [ ] T015 [US1] Add gender dropdown to createOrUpdatePetForm.jsp in src/main/webapp/WEB-INF/views/pets/createOrUpdatePetForm.jsp
-- [ ] T016 [US1] Update PetValidator.java to validate gender in src/main/java/org/springframework/samples/petclinic/web/PetValidator.java
+- [x] T008 [P] [US1] Create Gender enum in src/main/java/org/springframework/samples/petclinic/model/Gender.java
+- [x] T009 [US1] Add gender field to Pet.java in src/main/java/org/springframework/samples/petclinic/model/Pet.java
+- [x] T010 [P] [US1] Add gender field to JdbcPet.java in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPet.java
+- [x] T011 [US1] Map gender column in JdbcPetRowMapper.java in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRowMapper.java
+- [x] T012 [US1] Handle gender in JdbcPetRepositoryImpl.java insert in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRepositoryImpl.java
+- [x] T013 [US1] Handle gender in JpaPetRepositoryImpl.java in src/main/java/org/springframework/samples/petclinic/repository/jpa/JpaPetRepositoryImpl.java
+- [x] T014 [US1] Handle gender in SpringDataPetRepository.java in src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataPetRepository.java
+- [x] T015 [US1] Add gender dropdown to createOrUpdatePetForm.jsp in src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp
+- [x] T016 [US1] Update PetValidator.java to validate gender in src/main/java/org/springframework/samples/petclinic/web/PetValidator.java
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -71,8 +71,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Verify gender update works: Run existing repository tests with update scenarios (T012-T014 cover implementation)
-- [ ] T018 [US2] Verify Pet gender setter allows updates in Pet.java
+- [x] T017 [P] [US2] Verify gender update works: Run existing repository tests with update scenarios (T012-T014 cover implementation)
+- [x] T018 [US2] Verify Pet gender setter allows updates in Pet.java
 
 **Checkpoint**: User Story 2 works (reuses User Story 1 infrastructure)
 
@@ -86,7 +86,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Add gender field display in ownerDetails.jsp (src/main/webapp/WEB-INF/jsp/owners/ownerDetails.jsp - inside the pet details section, line ~55 after Type)
+- [x] T019 [US3] Add gender field display in ownerDetails.jsp (src/main/webapp/WEB-INF/jsp/owners/ownerDetails.jsp - inside the pet details section, line ~55 after Type)
 
 **Checkpoint**: All user stories independently functional
 
@@ -96,10 +96,10 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T020 [P] Run full test suite: `./mvnw test`
-- [ ] T021 [P] Verify backward compatibility (existing pets default to UNKNOWN)
-- [ ] T022 [P] Test backward compatibility: create pet without gender and verify defaults to UNKNOWN
-- [ ] T023 Verify quickstart.md scenarios work
+- [x] T020 [P] Run full test suite: `./mvnw test`
+- [x] T021 [P] Verify backward compatibility (existing pets default to UNKNOWN)
+- [x] T022 [P] Test backward compatibility: create pet without gender and verify defaults to UNKNOWN
+- [x] T023 Verify quickstart.md scenarios work
 
 ---
 

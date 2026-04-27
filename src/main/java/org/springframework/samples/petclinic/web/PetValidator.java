@@ -53,6 +53,11 @@ public class PetValidator implements Validator {
         if (pet.getBirthDate() == null) {
             errors.rejectValue("birthDate", REQUIRED, REQUIRED);
         }
+
+        // gender validation - optional, defaults to UNKNOWN if null
+        if (pet.getGender() == null) {
+            pet.setGender(org.springframework.samples.petclinic.model.Gender.UNKNOWN);
+        }
     }
 
     /**
