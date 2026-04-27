@@ -22,10 +22,10 @@ description: "Task list for Add Gender Enum to Pet feature"
 
 **Purpose**: Core model and enum changes required before any user story
 
-- [ ] T001 Create Gender enum in src/main/java/org/springframework/samples/petclinic/model/Gender.java
-- [ ] T002 [P] Add gender field to Pet entity in src/main/java/org/springframework/samples/petclinic/model/Pet.java
-- [ ] T003 [P] Add gender field to JdbcPet in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPet.java
-- [ ] T004 Add gender mapping in JdbcPetRowMapper in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRowMapper.java
+- [X] T001 Create Gender enum in src/main/java/org/springframework/samples/petclinic/model/Gender.java
+- [X] T002 [P] Add gender field to Pet entity in src/main/java/org/springframework/samples/petclinic/model/Pet.java
+- [X] T003 [P] Add gender field to JdbcPet in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPet.java
+- [X] T004 Add gender mapping in JdbcPetRowMapper in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRowMapper.java
 
 **Checkpoint**: Core model ready - user story implementation can now begin
 
@@ -46,16 +46,15 @@ description: "Task list for Add Gender Enum to Pet feature"
 
 ### Implementation for User Story 1
 
-- [ ] T007 [P] [US1] Add findByGender to PetRepository interface in src/main/java/org/springframework/samples/petclinic/repository/PetRepository.java
-- [ ] T008 [US1] Implement findByGender in JpaPetRepositoryImpl in src/main/java/org/springframework/samples/petclinic/repository/jpa/JpaPetRepositoryImpl.java
-- [ ] T009 [US1] Implement findByGender in JdbcPetRepositoryImpl in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRepositoryImpl.java
-- [ ] T010 [P] [US1] Add findByGender to SpringDataPetRepository in src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataPetRepository.java
-- [ ] T011 Add gender column to H2 schema in src/main/resources/db/h2/schema.sql
-- [ ] T012 Add gender column to MySQL schema in src/main/resources/db/mysql/schema.sql
-- [ ] T013 Add gender column to PostgreSQL schema in src/main/resources/db/postgresql/schema.sql
-- [ ] T014 [US1] Update PetController with genders model attribute in src/main/java/org/springframework/samples/petclinic/web/PetController.java
-- [ ] T015 [US1] Add genders property editor in src/main/webapp/WEB-INF/petclinic-servlet.xml
-- [ ] T016 [US1] Add gender dropdown to createOrUpdatePetForm.jsp in src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp
+- [X] T007 [P] [US1] Add findByGender to PetRepository interface in src/main/java/org/springframework/samples/petclinic/repository/PetRepository.java
+- [X] T008 [US1] Implement findByGender in JpaPetRepositoryImpl in src/main/java/org/springframework/samples/petclinic/repository/jpa/JpaPetRepositoryImpl.java
+- [X] T009 [US1] Implement findByGender in JdbcPetRepositoryImpl in src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRepositoryImpl.java
+- [X] T010 [P] [US1] Add findByGender to SpringDataPetRepository in src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataPetRepository.java
+- [X] T011 Add gender column to H2 schema in src/main/resources/db/h2/schema.sql
+- [X] T012 Add gender column to MySQL schema in src/main/resources/db/mysql/schema.sql
+- [X] T013 Add gender column to PostgreSQL schema in src/main/resources/db/postgresql/schema.sql
+- [X] T014 [US1] Update PetController with genders model attribute in src/main/java/org/springframework/samples/petclinic/web/PetController.java
+- [X] T016 [US1] Add gender dropdown to createOrUpdatePetForm.jsp in src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp
 
 **Checkpoint**: User Story 1 should be fully functional and testable independently
 

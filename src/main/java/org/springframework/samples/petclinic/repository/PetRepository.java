@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.repository;
 import java.util.List;
 
 import org.springframework.samples.petclinic.model.BaseEntity;
+import org.springframework.samples.petclinic.model.Gender;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 
@@ -55,5 +56,7 @@ public interface PetRepository {
      * @see BaseEntity#isNew
      */
     void save(Pet pet);
+
+    List<Pet> findByGender(Gender gender);
 
 }

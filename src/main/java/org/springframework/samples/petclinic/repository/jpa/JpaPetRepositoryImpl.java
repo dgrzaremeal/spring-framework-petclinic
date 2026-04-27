@@ -19,6 +19,7 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 
+import org.springframework.samples.petclinic.model.Gender;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.repository.PetRepository;
@@ -60,6 +61,14 @@ public class JpaPetRepositoryImpl implements PetRepository {
         } else {
             this.em.merge(pet);
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Pet> findByGender(Gender gender) {
+        return this.em.createQuery("SELECT p FROM Pet p WHERE p.gender = :gender ORDER BY p.name")
+            .setParameter("gender", gender)
+            .getResultList();
     }
 
 }

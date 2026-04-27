@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.samples.petclinic.model.Gender;
 
 /**
  * {@link RowMapper} implementation mapping data from a {@link ResultSet} to the corresponding properties
@@ -35,6 +36,12 @@ class JdbcPetRowMapper implements RowMapper<JdbcPet> {
         pet.setBirthDate(rs.getObject("birth_date", LocalDate.class));
         pet.setTypeId(rs.getInt("type_id"));
         pet.setOwnerId(rs.getInt("owner_id"));
+        String genderStr = rs.getString("gender");
+        if (genderStr != null) {
+            pet.setGender(Gender.valueOf(genderStr));
+        } else {
+            pet.setGender(Gender.UNKNOWN);
+        }
         return pet;
     }
 }

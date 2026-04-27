@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.samples.petclinic.model.Gender;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -94,7 +95,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             this.jdbcClient
                 .sql("""
                     UPDATE pets
-                    SET name=:name, birth_date=:birth_date, type_id=:type_id, owner_id=:owner_id
+                    SET name=:name, birth_date=:birth_date, type_id=:type_id, owner_id=:owner_id, gender=:gender
                     WHERE id=:id
                     """)
                 .paramSource(createPetParameterSource(pet))
@@ -111,7 +112,18 @@ public class JdbcPetRepositoryImpl implements PetRepository {
             .addValue("name", pet.getName())
             .addValue("birth_date", pet.getBirthDate())
             .addValue("type_id", pet.getType().getId())
-            .addValue("owner_id", pet.getOwner().getId());
+            .addValue("owner_id", pet.getOwner().getId())
+            .addValue("gender", pet.getGender() != null ? pet.getGender().name() : Gender.UNKNOWN.name());
+    }
+
+    @Override
+    public List<Pet> findByGender(Gender gender) {
+        List<JdbcPet> jdbcPets = this.jdbcClient
+            .sql("SELECT * FROM pets WHERE gender = :gender ORDER BY name")
+            .param("gender", gender.name())
+            .query(new JdbcPetRowMapper())
+            .list();
+        return (List<Pet>) (List<?>) jdbcPets;
     }
 
 }
