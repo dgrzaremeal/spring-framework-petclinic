@@ -20,3 +20,5 @@ target/
 # Coding Agents
 .opencode/
 requisitos.md
+.specify/memory/constitution_history/
+specs_*

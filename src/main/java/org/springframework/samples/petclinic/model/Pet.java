@@ -20,6 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -53,6 +54,10 @@ public class Pet extends NamedEntity {
     @JoinColumn(name = "type_id")
     private PetType type;
 
+    @Enumerated
+    @Column(name = "gender")
+    private Gender gender;
+
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
@@ -75,6 +80,14 @@ public class Pet extends NamedEntity {
 
     public void setType(PetType type) {
         this.type = type;
+    }
+
+    public Gender getGender() {
+        return this.gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public Owner getOwner() {

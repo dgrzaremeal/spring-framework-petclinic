@@ -29,6 +29,8 @@ class JdbcPet extends Pet {
 
     private int ownerId;
 
+    private String gender;
+
     public int getTypeId() {
         return this.typeId;
     }
@@ -43,6 +45,14 @@ class JdbcPet extends Pet {
 
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public String getGender() {
+        return this.gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }
