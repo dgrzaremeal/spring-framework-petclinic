@@ -2,7 +2,7 @@
 
 **Branch**: gh-spec-kit--constitution
 **Date**: 2026-04-24
-**Status**: draft
+**Status**: done
 **Complexity**: small
 
 ## What
@@ -31,12 +31,12 @@ Add a Gender enum field (MALE, FEMALE, UNKNOWN) to the Pet entity to enable sex-
 
 ## Tasks
 
-- [ ] Create Gender enum (MALE, FEMALE, UNKNOWN)
-- [ ] Add gender field to Pet.java
-- [ ] Add getGender/setGender methods
+- [x] Create Gender enum (MALE, FEMALE, UNKNOWN)
+- [x] Add gender field to Pet.java
+- [x] Add getGender/setGender methods
 
 ## Done When
 
-- [ ] All tasks checked off
-- [ ] Code compiles
-- [ ] No lint errors
+- [x] All tasks checked off
+- [x] Code compiles
+- [x] No lint errors
