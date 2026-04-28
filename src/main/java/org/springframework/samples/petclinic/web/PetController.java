@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import org.springframework.samples.petclinic.model.Gender;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -49,6 +50,11 @@ public class PetController {
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
         return this.clinicService.findPetTypes();
+    }
+
+    @ModelAttribute("genders")
+    public Gender[] populateGenders() {
+        return Gender.values();
     }
 
     @ModelAttribute("owner")
