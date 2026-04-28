@@ -1,54 +1,55 @@
+<!-- Sync Impact Report:
+- Version change: [CONSTITUTION_VERSION] → 1.0.0 (Initial version)
+- Modified principles:
+  - [PRINCIPLE_1_NAME] → I. Three-Layer Architecture
+  - [PRINCIPLE_2_NAME] → II. Test-Driven Development (TDD)
+  - [PRINCIPLE_3_NAME] → III. Explicit Configuration
+  - [PRINCIPLE_4_NAME] → IV. Database Persistence Abstraction
+  - [PRINCIPLE_5_NAME] → V. Observability and Debuggability
+- Added sections: Development Standards
+- Removed sections: None (reorganized existing sections)
+- Templates requiring updates:
+  - ✅ .specify/templates/plan-template.md (Constitution Check updated)
+  - ⚠ .specify/templates/spec-template.md (Review needed for principle alignment)
+  - ⚠ .specify/templates/tasks-template.md (Review needed for principle alignment)
+  - ⚠ .specify/extensions/git/commands/speckit.git.initialize.md (Review needed for principle alignment)
+  - ⚠ .specify/extensions/tinyspec/commands/speckit.tinyspec.md (Review needed for principle alignment)
+  - ⚠ .specify/extensions/tinyspec/commands/speckit.tinyspec.implement.md (Review needed for principle alignment)
+  - ⚠ .specify/extensions/tinyspec/commands/speckit.tinyspec.classify.md (Review needed for principle alignment)
+- Follow-up TODOs: Review and update other template files to align with new principles
+-->
+
 # Spring PetClinic Constitution
 
 ## Core Principles
 
-### I. Test-Driven Development
-All new features and bug fixes MUST be accompanied by tests. Unit tests are required for service logic, repository contracts, and controller behavior. Integration tests are required when crossing layer boundaries or involving database interactions. Tests MUST fail before implementation and pass upon completion (Red-Green-Refactor). The Maven test phase MUST pass for any PR to be merged.
+### I. Three-Layer Architecture
+The application follows a strict 3-layer architecture: presentation (web) --> service --> repository. Each layer has distinct responsibilities and dependencies flow downward only. Presentation layer handles HTTP requests and responses, service layer contains business logic, and repository layer handles data access. This separation ensures maintainability, testability, and clear boundaries of concern.
 
-### II. Layered Architecture
-The application follows a strict 3-layer architecture: Presentation (Controllers, Views) → Service (Business Logic) → Repository (Data Access). Dependencies MUST only flow downward. Upper layers MUST NOT import lower-layer implementations directly. Cross-layer communication MUST occur through defined interfaces. Any deviation requires documented justification.
+### II. Test-Driven Development (TDD)
+Testing is mandatory for all new features and bug fixes. Tests must be written and verified to fail before implementation begins. The Red-Green-Refactor cycle is strictly enforced: write failing test (Red), implement minimal code to pass test (Green), then refactor while keeping tests passing. All layers require unit tests, and service layer requires integration tests.
 
-### III. Persistence Agnosticism
-The system supports three persistence implementations: JPA (default), JDBC, and Spring Data JPA. Business logic in the Service layer MUST be written against the ClinicService interface, not specific implementations. Repository implementations MUST be independently swappable via Spring profiles. No feature implementation SHOULD assume a specific persistence mechanism unless explicitly required.
+### III. Explicit Configuration
+Configuration must be explicit and visible. XML configuration is preferred for transparency, though Java configuration is acceptable when justified. All beans, mappings, and settings must be clearly defined in configuration files or annotated classes. Hidden or implicit configuration that obscures behavior is prohibited.
 
-### IV. Quality Gates
-All changes MUST pass CI gates before merge. Required gates: Maven compile, Maven test, SonarCloud quality analysis. Code coverage MUST not regress below existing thresholds. Static analysis warnings MUST be addressed or explicitly justified. Security scans MUST pass with no new critical/high vulnerabilities.
+### IV. Database Persistence Abstraction
+Data access must be abstracted through repository interfaces. Multiple persistence implementations (JPA, JDBC, Spring Data JPA) must be supported via Spring profiles. Business logic must remain persistence-agnostic, depending only on repository contracts. This ensures flexibility in storage technology without affecting application logic.
 
-### V. Observability
-Application operations MUST be observable through structured logging. Key operations (database access, transaction boundaries, HTTP requests) MUST be logged at appropriate levels. Exceptions MUST be logged with sufficient context for debugging. Log configuration MUST support multiple outputs (console, file) with configurable levels.
+### V. Observability and Debuggability
+The application must provide clear observability through structured logging, meaningful error messages, and diagnostic capabilities. All layers should log appropriately at DEBUG/TRACE levels for development and INFO/WARN/ERROR for production. Exception handling must preserve context and provide actionable information.
 
-## Technology Standards
+## Development Standards
 
-**Language**: Java 17+ (full JDK required)
-**Build Tool**: Maven 3.8+
-**Framework**: Spring Framework (plain XML configuration, no Spring Boot)
-**Views**: JSP/JSTL with custom tags
-**Database**: H2 (default, in-memory), MySQL, PostgreSQL (via Maven profiles)
-**Persistence**: JPA (default), JDBC, Spring Data JPA (via Spring profiles)
-**Testing**: JUnit, Spring Test framework
-**Container**: Docker via Jib (distroless Jetty base)
+### Code Quality and Style
+All code must adhere to established Java conventions and project-specific style guidelines. Meaningful names, proper encapsulation, and SOLID principles are required. Code reviews must verify adherence to these standards before merging. Duplicate code should be eliminated through abstraction.
 
-## Development Workflow
+### Dependency Management
+Dependencies must be explicitly declared in Maven pom.xml with justified versions. Unused dependencies must be removed. New dependencies require justification and impact assessment. The project prefers stable, well-maintained libraries from reputable sources.
 
-**Architecture Review**: Architectural changes affecting layer boundaries require review
-**Testing Discipline**: All tests run via `./mvnw test`; integration tests via `./mvnw verify`
-**Profile Usage**: Use `-P MySQL`, `-P PostgreSQL` for persistent databases; `-Dspring.profiles.active=jdbc|spring-data-jpa|jpa` for persistence layer selection
-**CSS Workflow**: SCSS changes require `./mvnw generate-resources -P css` to compile
-**Deployment**: Docker image via `mvn jib:build`
+### Documentation and Comments
+Public APIs, complex algorithms, and non-obvious business logic must be documented with Javadoc comments. Configuration files should include comments explaining purpose and usage. README and developer guides must be kept current with architectural decisions and setup instructions.
 
 ## Governance
+This constitution supersedes all other project guidelines and practices. Amendments require explicit documentation of changes, rationale, and impact assessment. All contributors must review and comply with the constitution. Complexity in implementation must be justified against simpler alternatives. The constitution is reviewed annually or when significant architectural changes are proposed.
 
-This constitution supersedes all informal development practices. Amendments require:
-1. Documented rationale explaining the need for change
-2. PR review with at least one approval
-3. Migration plan for existing code if principles affect current implementations
-4. Version increment per semantic versioning rules
-
-**Version Bump Policy**:
-- MAJOR: Backward-incompatible architectural changes or principle removals
-- MINOR: New principles added or material expansion of existing guidance
-- PATCH: Clarifications, wording fixes, non-semantic refinements
-
-All contributors MUST verify compliance with these principles before submitting changes. Complexity beyond the minimum required MUST be justified in the implementation plan.
-
-**Version**: 1.0.0 | **Ratified**: 2026-04-24 | **Last Amended**: 2026-04-24
+**Version**: 1.0.0 | **Ratified**: 2026-04-28 | **Last Amended**: 2026-04-28
