@@ -11,6 +11,8 @@ The application follows a strict 3-layer architecture: Presentation (Controllers
 ### III. Persistence Agnosticism
 The system supports three persistence implementations: JPA (default), JDBC, and Spring Data JPA. Business logic in the Service layer MUST be written against the ClinicService interface, not specific implementations. Repository implementations MUST be independently swappable via Spring profiles. No feature implementation SHOULD assume a specific persistence mechanism unless explicitly required.
 
+**Schema and Data Synchronization**: When database schema or initial data changes, ALL three persistence implementations MUST be updated before tests can pass. This includes: (1) DDL scripts for each implementation, (2) initialization data in each required format, (3) integration tests verifying data loads correctly under each profile. A schema change that breaks even one persistence implementation constitutes incomplete implementation.
+
 ### IV. Quality Gates
 All changes MUST pass CI gates before merge. Required gates: Maven compile, Maven test, SonarCloud quality analysis. Code coverage MUST not regress below existing thresholds. Static analysis warnings MUST be addressed or explicitly justified. Security scans MUST pass with no new critical/high vulnerabilities.
 
@@ -51,4 +53,4 @@ This constitution supersedes all informal development practices. Amendments requ
 
 All contributors MUST verify compliance with these principles before submitting changes. Complexity beyond the minimum required MUST be justified in the implementation plan.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-24 | **Last Amended**: 2026-04-24
+**Version**: 1.1.0 | **Ratified**: 2026-04-24 | **Last Amended**: 2026-04-29
