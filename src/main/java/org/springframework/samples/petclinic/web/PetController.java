@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import org.springframework.samples.petclinic.model.Gender;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
@@ -28,7 +29,9 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Juergen Hoeller
@@ -49,6 +52,11 @@ public class PetController {
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
         return this.clinicService.findPetTypes();
+    }
+
+    @ModelAttribute("genders")
+    public List<Gender> populateGenders() {
+        return Arrays.asList(Gender.values());
     }
 
     @ModelAttribute("owner")

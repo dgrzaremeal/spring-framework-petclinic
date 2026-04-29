@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Gender;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.util.EntityUtils;
@@ -146,6 +147,39 @@ abstract class AbstractClinicServiceTests {
         assertThat(owner6.getPets()).hasSize(found + 1);
         // checks that id has been generated
         assertThat(pet.getId()).isNotNull();
+        // gender defaults to UNKNOWN when not set
+        assertThat(pet.getGender()).isEqualTo(Gender.UNKNOWN);
+    }
+
+    @Test
+    @Transactional
+    public void shouldSavePetWithExplicitGender() {
+        Owner owner6 = this.clinicService.findOwnerById(6);
+        Pet pet = new Pet();
+        pet.setName("gendertest");
+        Collection<PetType> types = this.clinicService.findPetTypes();
+        pet.setType(EntityUtils.getById(types, PetType.class, 2));
+        pet.setBirthDate(LocalDate.now());
+        pet.setGender(Gender.MALE);
+        owner6.addPet(pet);
+
+        this.clinicService.savePet(pet);
+
+        Pet saved = this.clinicService.findPetById(pet.getId());
+        assertThat(saved.getGender()).isEqualTo(Gender.MALE);
+    }
+
+    @Test
+    @Transactional
+    public void shouldUpdatePetGender() {
+        Pet pet7 = this.clinicService.findPetById(7);
+        assertThat(pet7.getGender()).isEqualTo(Gender.UNKNOWN);
+
+        pet7.setGender(Gender.FEMALE);
+        this.clinicService.savePet(pet7);
+
+        pet7 = this.clinicService.findPetById(7);
+        assertThat(pet7.getGender()).isEqualTo(Gender.FEMALE);
     }
 
     @Test
