@@ -77,4 +77,22 @@ class PetTests {
 
         assertEquals(pet.getId(), visit.getPet().getId());
     }
+
+    @Test
+    void newPet_shouldHaveDefaultGenderUnknown() {
+        Pet newPet = new Pet();
+        assertEquals(Gender.UNKNOWN, newPet.getGender());
+    }
+
+    @Test
+    void setGender_shouldPersistAssignedValue() {
+        pet.setGender(Gender.MALE);
+        assertEquals(Gender.MALE, pet.getGender());
+
+        pet.setGender(Gender.FEMALE);
+        assertEquals(Gender.FEMALE, pet.getGender());
+
+        pet.setGender(Gender.UNKNOWN);
+        assertEquals(Gender.UNKNOWN, pet.getGender());
+    }
 }

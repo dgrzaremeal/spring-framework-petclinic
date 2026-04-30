@@ -53,6 +53,11 @@ public class PetValidator implements Validator {
         if (pet.getBirthDate() == null) {
             errors.rejectValue("birthDate", REQUIRED, REQUIRED);
         }
+
+        // gender validation (defensive — field initializer ensures UNKNOWN by default)
+        if (pet.getGender() == null) {
+            errors.rejectValue("gender", REQUIRED, REQUIRED);
+        }
     }
 
     /**

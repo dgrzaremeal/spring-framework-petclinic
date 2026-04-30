@@ -17,7 +17,7 @@
 
 **Purpose**: Create the `Gender` enum — the single foundational type that all three user stories depend on.
 
-- [ ] T001 Create `Gender` enum with MALE, FEMALE, UNKNOWN constants and `toString()` override in `src/main/java/org/springframework/samples/petclinic/model/Gender.java`
+- [X] T001 Create `Gender` enum with MALE, FEMALE, UNKNOWN constants and `toString()` override in `src/main/java/org/springframework/samples/petclinic/model/Gender.java`
 
 ---
 
@@ -27,11 +27,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T002 Add `gender` field (`@Enumerated(EnumType.STRING)`, default `Gender.UNKNOWN`), getter, and setter to `src/main/java/org/springframework/samples/petclinic/model/Pet.java`
-- [ ] T003 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/h2/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/h2/data.sql` to include `gender = 'UNKNOWN'`
-- [ ] T004 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/hsqldb/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/hsqldb/data.sql` to include `gender = 'UNKNOWN'`
-- [ ] T005 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/mysql/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/mysql/data.sql` to include `gender = 'UNKNOWN'`
-- [ ] T006 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/postgresql/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/postgresql/data.sql` to include `gender = 'UNKNOWN'`
+- [X] T002 Add `gender` field (`@Enumerated(EnumType.STRING)`, default `Gender.UNKNOWN`), getter, and setter to `src/main/java/org/springframework/samples/petclinic/model/Pet.java`
+- [X] T003 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/h2/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/h2/data.sql` to include `gender = 'UNKNOWN'`
+- [X] T004 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/hsqldb/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/hsqldb/data.sql` to include `gender = 'UNKNOWN'`
+- [X] T005 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/mysql/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/mysql/data.sql` to include `gender = 'UNKNOWN'`
+- [X] T006 [P] Add `gender VARCHAR(20) NOT NULL DEFAULT 'UNKNOWN'` column to `pets` table in `src/main/resources/db/postgresql/schema.sql` and update all `INSERT INTO pets` rows in `src/main/resources/db/postgresql/data.sql` to include `gender = 'UNKNOWN'`
 
 **Checkpoint**: Foundation ready — `Gender` enum exists, `Pet.gender` field is mapped, all four DB schemas include the column. User story implementation can now begin.
 
@@ -45,11 +45,11 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Add `@ModelAttribute("genders")` method returning `List<Gender>` (via `Arrays.asList(Gender.values())`) to `src/main/java/org/springframework/samples/petclinic/web/PetController.java`
-- [ ] T008 [US1] Add defensive null-check for `pet.getGender()` in `validate()` method of `src/main/java/org/springframework/samples/petclinic/web/PetValidator.java`
-- [ ] T009 [US1] Add `gender=:gender` to the `UPDATE` SQL and add `.addValue("gender", pet.getGender().name())` to `createPetParameterSource()` in `src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRepositoryImpl.java`
-- [ ] T010 [US1] Add `pet.setGender(Gender.valueOf(rs.getString("gender")))` mapping in `src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRowMapper.java`
-- [ ] T011 [US1] Add gender `<select>` dropdown using `<petclinic:selectField name="gender" label="Gender " names="${genders}" size="3"/>` after the type field in `src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp`
+- [X] T007 [US1] Add `@ModelAttribute("genders")` method returning `List<Gender>` (via `Arrays.asList(Gender.values())`) to `src/main/java/org/springframework/samples/petclinic/web/PetController.java`
+- [X] T008 [US1] Add defensive null-check for `pet.getGender()` in `validate()` method of `src/main/java/org/springframework/samples/petclinic/web/PetValidator.java`
+- [X] T009 [US1] Add `gender=:gender` to the `UPDATE` SQL and add `.addValue("gender", pet.getGender().name())` to `createPetParameterSource()` in `src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRepositoryImpl.java`
+- [X] T010 [US1] Add `pet.setGender(Gender.valueOf(rs.getString("gender")))` mapping in `src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcPetRowMapper.java`
+- [X] T011 [US1] Add gender `<select>` dropdown using `<petclinic:selectField name="gender" label="Gender " names="${genders}" size="3"/>` after the type field in `src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp`
 
 **Checkpoint**: User Story 1 is fully functional. Staff can add a new pet with a gender value; the value is persisted across all three persistence profiles (JPA, JDBC, Spring Data JPA).
 
@@ -63,8 +63,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Verify that `PetController.initUpdateForm` populates the model with the existing `Pet` (including `gender`) and that the `genders` model attribute (added in T007) is available on the edit form — no new code required if T007 is complete; confirm by reviewing `src/main/java/org/springframework/samples/petclinic/web/PetController.java`
-- [ ] T013 [US2] Verify that `createOrUpdatePetForm.jsp` gender dropdown (added in T011) correctly pre-selects the current `pet.gender` value via Spring MVC form binding — no new code required if T011 is complete; confirm by reviewing `src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp`
+- [X] T012 [US2] Verify that `PetController.initUpdateForm` populates the model with the existing `Pet` (including `gender`) and that the `genders` model attribute (added in T007) is available on the edit form — no new code required if T007 is complete; confirm by reviewing `src/main/java/org/springframework/samples/petclinic/web/PetController.java`
+- [X] T013 [US2] Verify that `createOrUpdatePetForm.jsp` gender dropdown (added in T011) correctly pre-selects the current `pet.gender` value via Spring MVC form binding — no new code required if T011 is complete; confirm by reviewing `src/main/webapp/WEB-INF/jsp/pets/createOrUpdatePetForm.jsp`
 
 **Checkpoint**: User Story 2 is fully functional. The edit form pre-selects the current gender and persists updates correctly.
 
@@ -78,7 +78,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Add `<dt>Gender</dt><dd><c:out value="${pet.gender}"/></dd>` after the Type row in the pet `<dl>` section of `src/main/webapp/WEB-INF/jsp/owners/ownerDetails.jsp`
+- [X] T014 [US3] Add `<dt>Gender</dt><dd><c:out value="${pet.gender}"/></dd>` after the Type row in the pet `<dl>` section of `src/main/webapp/WEB-INF/jsp/owners/ownerDetails.jsp`
 
 **Checkpoint**: All three user stories are independently functional. Gender is recorded, editable, and displayed with human-readable labels.
 
@@ -88,10 +88,10 @@
 
 **Purpose**: Test coverage, build validation, and smoke testing across all persistence profiles.
 
-- [ ] T015 [P] Add gender default/assignment unit tests to `src/test/java/org/springframework/samples/petclinic/model/PetTests.java` (verify `new Pet().getGender() == Gender.UNKNOWN` and explicit assignment)
-- [ ] T016 [P] Add gender persistence integration tests to `src/test/java/org/springframework/samples/petclinic/service/AbstractClinicServiceTests.java` (verify gender is saved and retrieved correctly for each enum value)
-- [ ] T017 [P] Add gender form binding tests to `src/test/java/org/springframework/samples/petclinic/web/PetControllerTests.java` (verify `genders` model attribute is present, form submission with each gender value, default UNKNOWN when omitted)
-- [ ] T018 Run `./mvnw test` and confirm all tests pass with the H2 in-memory profile
+- [X] T015 [P] Add gender default/assignment unit tests to `src/test/java/org/springframework/samples/petclinic/model/PetTests.java` (verify `new Pet().getGender() == Gender.UNKNOWN` and explicit assignment)
+- [X] T016 [P] Add gender persistence integration tests to `src/test/java/org/springframework/samples/petclinic/service/AbstractClinicServiceTests.java` (verify gender is saved and retrieved correctly for each enum value)
+- [X] T017 [P] Add gender form binding tests to `src/test/java/org/springframework/samples/petclinic/web/PetControllerTests.java` (verify `genders` model attribute is present, form submission with each gender value, default UNKNOWN when omitted)
+- [X] T018 Run `./mvnw test` and confirm all tests pass with the H2 in-memory profile
 - [ ] T019 Run quickstart.md smoke test: start app with `./mvnw jetty:run-war`, navigate to Add New Pet, verify gender dropdown shows Male/Female/Unknown, submit with each value, verify display on owner detail page, edit an existing pet and change gender
 
 ---

@@ -20,6 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -45,6 +47,10 @@ import java.util.Set;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender = Gender.UNKNOWN;
+
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate birthDate;
@@ -67,6 +73,14 @@ public class Pet extends NamedEntity {
 
     public LocalDate getBirthDate() {
         return this.birthDate;
+    }
+
+    public Gender getGender() {
+        return this.gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public PetType getType() {
