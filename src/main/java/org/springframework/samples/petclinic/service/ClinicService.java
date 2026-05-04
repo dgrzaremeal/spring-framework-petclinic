@@ -16,12 +16,14 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.WeightRecord;
 
 
 /**
@@ -48,5 +50,9 @@ public interface ClinicService {
     Collection<Owner> findOwnerByLastName(String lastName);
 
 	Collection<Visit> findVisitsByPetId(int petId);
+
+    List<WeightRecord> findWeightRecordsByPetId(int petId);
+
+    void saveWeightRecord(WeightRecord weightRecord);
 
 }

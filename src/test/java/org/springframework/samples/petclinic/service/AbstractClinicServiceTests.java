@@ -19,6 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.WeightRecord;
 import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -197,6 +200,33 @@ abstract class AbstractClinicServiceTests {
         assertThat(visitArr[0].getPet()).isNotNull();
         assertThat(visitArr[0].getDate()).isNotNull();
         assertThat(visitArr[0].getPet().getId()).isEqualTo(7);
+    }
+
+    @Test
+    @Transactional
+    public void shouldSaveAndFindWeightRecordsByPetId() {
+        Pet pet7 = this.clinicService.findPetById(7);
+        WeightRecord wr1 = new WeightRecord();
+        wr1.setPet(pet7);
+        wr1.setWeightKg(new BigDecimal("4.500"));
+        wr1.setMeasurementDate(LocalDate.of(2024, 1, 10));
+        this.clinicService.saveWeightRecord(wr1);
+
+        WeightRecord wr2 = new WeightRecord();
+        wr2.setPet(pet7);
+        wr2.setWeightKg(new BigDecimal("4.800"));
+        wr2.setMeasurementDate(LocalDate.of(2024, 2, 15));
+        this.clinicService.saveWeightRecord(wr2);
+
+        List<WeightRecord> records = this.clinicService.findWeightRecordsByPetId(7);
+        assertThat(records).hasSizeGreaterThanOrEqualTo(2);
+        // Verify chronological order (ASC)
+        for (int i = 1; i < records.size(); i++) {
+            assertThat(records.get(i).getMeasurementDate())
+                .isAfterOrEqualTo(records.get(i - 1).getMeasurementDate());
+        }
+        assertThat(wr1.getId()).isNotNull();
+        assertThat(wr2.getId()).isNotNull();
     }
 
 

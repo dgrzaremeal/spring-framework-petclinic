@@ -59,3 +59,11 @@ CREATE TABLE IF NOT EXISTS visits (
   description VARCHAR(255),
   FOREIGN KEY (pet_id) REFERENCES pets(id)
 ) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS weight_records (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  pet_id INT(4) UNSIGNED NOT NULL,
+  weight_kg DECIMAL(6,3) NOT NULL,
+  measurement_date DATE NOT NULL,
+  CONSTRAINT fk_weight_records_pet FOREIGN KEY (pet_id) REFERENCES pets(id)
+) ENGINE=InnoDB;

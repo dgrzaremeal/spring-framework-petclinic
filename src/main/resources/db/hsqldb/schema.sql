@@ -2,6 +2,7 @@ DROP TABLE vet_specialties IF EXISTS;
 DROP TABLE vets IF EXISTS;
 DROP TABLE specialties IF EXISTS;
 DROP TABLE visits IF EXISTS;
+DROP TABLE weight_records IF EXISTS;
 DROP TABLE pets IF EXISTS;
 DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
@@ -62,3 +63,12 @@ CREATE TABLE visits (
 );
 ALTER TABLE visits ADD CONSTRAINT fk_visits_pets FOREIGN KEY (pet_id) REFERENCES pets (id);
 CREATE INDEX visits_pet_id ON visits (pet_id);
+
+CREATE TABLE weight_records (
+  id               INTEGER IDENTITY PRIMARY KEY,
+  pet_id           INTEGER NOT NULL,
+  weight_kg        DECIMAL(6,3) NOT NULL,
+  measurement_date DATE NOT NULL,
+  CONSTRAINT fk_weight_records_pet FOREIGN KEY (pet_id) REFERENCES pets (id)
+);
+CREATE INDEX weight_records_pet_id ON weight_records (pet_id);

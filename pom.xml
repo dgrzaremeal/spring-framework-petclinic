@@ -34,6 +34,7 @@
         <webjars-bootstrap.version>5.3.8</webjars-bootstrap.version> <!-- Report bootstrap version to the footer.tag -->
         <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
         <webjars-flatpickr.version>4.6.13</webjars-flatpickr.version>
+        <webjars-chartjs.version>4.5.0</webjars-chartjs.version>
 
         <!-- Jakarta EE / Java SE dependencies -->
         <tomcat.version>11.0.18</tomcat.version>
@@ -265,6 +266,11 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>flatpickr</artifactId>
             <version>${webjars-flatpickr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>chart.js</artifactId>
+            <version>${webjars-chartjs.version}</version>
         </dependency>
 
         <!-- Test Artifacts -->
