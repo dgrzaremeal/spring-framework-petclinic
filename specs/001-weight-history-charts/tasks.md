@@ -17,11 +17,11 @@
 
 **Purpose**: Add the Chart.js WebJar dependency and database schema changes that are prerequisites for all user stories.
 
-- [ ] T001 Add Chart.js WebJar dependency (`org.webjars.npm:chart.js:4.5.0`) to `pom.xml`
-- [ ] T002 [P] Add `weight_records` table to `src/main/resources/db/h2/schema.sql`
-- [ ] T003 [P] Add `weight_records` table to `src/main/resources/db/hsqldb/schema.sql`
-- [ ] T004 [P] Add `weight_records` table to `src/main/resources/db/mysql/schema.sql`
-- [ ] T005 [P] Add `weight_records` table to `src/main/resources/db/postgres/schema.sql`
+- [x] T001 Add Chart.js WebJar dependency (`org.webjars.npm:chart.js:4.5.0`) to `pom.xml`
+- [x] T002 [P] Add `weight_records` table to `src/main/resources/db/h2/schema.sql`
+- [x] T003 [P] Add `weight_records` table to `src/main/resources/db/hsqldb/schema.sql`
+- [x] T004 [P] Add `weight_records` table to `src/main/resources/db/mysql/schema.sql`
+- [x] T005 [P] Add `weight_records` table to `src/main/resources/db/postgres/schema.sql`
 
 **Checkpoint**: WebJar declared and all four database schemas updated — foundational layer ready.
 
@@ -33,13 +33,13 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T006 Create `WeightRecord` entity extending `BaseEntity` with fields: `pet` (`@ManyToOne`, `@NotNull`), `weightKg` (`BigDecimal`, `@NotNull`, `@DecimalMin("0.001")`, `@DecimalMax("250.0")`), `measurementDate` (`LocalDate`, `@NotNull`, `@DateTimeFormat(pattern="yyyy/MM/dd")`); annotate class with `@Entity`, `@Table(name="weight_records")` in `src/main/java/org/springframework/samples/petclinic/model/WeightRecord.java`
-- [ ] T007 Create `WeightRecordRepository` interface with `findByPetId(Integer petId)` and `save(WeightRecord)` methods in `src/main/java/org/springframework/samples/petclinic/repository/WeightRecordRepository.java`
-- [ ] T008 [P] Implement `JpaWeightRecordRepositoryImpl` using `EntityManager` (mirrors `JpaVisitRepositoryImpl`); query MUST order results by `measurementDate ASC` to satisfy FR-004 in `src/main/java/org/springframework/samples/petclinic/repository/jpa/JpaWeightRecordRepositoryImpl.java`
-- [ ] T009 [P] Implement `JdbcWeightRecordRepositoryImpl` using `NamedParameterJdbcTemplate` with `RowMapper` for `WeightRecord`; SQL query MUST include `ORDER BY measurement_date ASC` to satisfy FR-004 (mirrors `JdbcVisitRepositoryImpl`) in `src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcWeightRecordRepositoryImpl.java`
-- [ ] T010 [P] Implement `SpringDataWeightRecordRepository` as a Spring Data JPA interface extending `Repository<WeightRecord, Integer>` with `findByPetIdOrderByMeasurementDateAsc` in `src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataWeightRecordRepository.java`
-- [ ] T011 Add `findWeightRecordsByPetId(int petId)` and `saveWeightRecord(WeightRecord)` method signatures to `src/main/java/org/springframework/samples/petclinic/service/ClinicService.java`
-- [ ] T012 Implement `findWeightRecordsByPetId` and `saveWeightRecord` in `src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java` (inject `WeightRecordRepository`, delegate calls)
+- [x] T006 Create `WeightRecord` entity extending `BaseEntity` with fields: `pet` (`@ManyToOne`, `@NotNull`), `weightKg` (`BigDecimal`, `@NotNull`, `@DecimalMin("0.001")`, `@DecimalMax("250.0")`), `measurementDate` (`LocalDate`, `@NotNull`, `@DateTimeFormat(pattern="yyyy/MM/dd")`); annotate class with `@Entity`, `@Table(name="weight_records")` in `src/main/java/org/springframework/samples/petclinic/model/WeightRecord.java`
+- [x] T007 Create `WeightRecordRepository` interface with `findByPetId(Integer petId)` and `save(WeightRecord)` methods in `src/main/java/org/springframework/samples/petclinic/repository/WeightRecordRepository.java`
+- [x] T008 [P] Implement `JpaWeightRecordRepositoryImpl` using `EntityManager` (mirrors `JpaVisitRepositoryImpl`); query MUST order results by `measurementDate ASC` to satisfy FR-004 in `src/main/java/org/springframework/samples/petclinic/repository/jpa/JpaWeightRecordRepositoryImpl.java`
+- [x] T009 [P] Implement `JdbcWeightRecordRepositoryImpl` using `NamedParameterJdbcTemplate` with `RowMapper` for `WeightRecord`; SQL query MUST include `ORDER BY measurement_date ASC` to satisfy FR-004 (mirrors `JdbcVisitRepositoryImpl`) in `src/main/java/org/springframework/samples/petclinic/repository/jdbc/JdbcWeightRecordRepositoryImpl.java`
+- [x] T010 [P] Implement `SpringDataWeightRecordRepository` as a Spring Data JPA interface extending `Repository<WeightRecord, Integer>` with `findByPetIdOrderByMeasurementDateAsc` in `src/main/java/org/springframework/samples/petclinic/repository/springdatajpa/SpringDataWeightRecordRepository.java`
+- [x] T011 Add `findWeightRecordsByPetId(int petId)` and `saveWeightRecord(WeightRecord)` method signatures to `src/main/java/org/springframework/samples/petclinic/service/ClinicService.java`
+- [x] T012 Implement `findWeightRecordsByPetId` and `saveWeightRecord` in `src/main/java/org/springframework/samples/petclinic/service/ClinicServiceImpl.java` (inject `WeightRecordRepository`, delegate calls)
 
 **Checkpoint**: Foundation ready — `WeightRecord` entity, all three repository implementations, and service layer wired. User story implementation can now begin.
 
@@ -53,9 +53,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T013 [US1] Create `WeightRecordValidator` (Spring `Validator`) that rejects `measurementDate` values after `LocalDate.now()` in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordValidator.java`
-- [ ] T014 [US1] Create `WeightRecordController` with `@InitBinder` (registers `WeightRecordValidator`), `GET /owners/{ownerId}/pets/{petId}/weights/new` (show form), and `POST /owners/{ownerId}/pets/{petId}/weights/new` (save record, redirect to list on success, re-display form on validation failure); implement **only** these two endpoints — no edit or delete routes (append-only per spec Assumption) in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordController.java`
-- [ ] T015 [US1] Create `createWeightRecordForm.jsp` with a form bound to `weightRecord`, fields for `weightKg` and `measurementDate` (format `yyyy/MM/dd`), and `<form:errors>` display for both fields in `src/main/webapp/WEB-INF/jsp/pets/createWeightRecordForm.jsp`
+- [x] T013 [US1] Create `WeightRecordValidator` (Spring `Validator`) that rejects `measurementDate` values after `LocalDate.now()` in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordValidator.java`
+- [x] T014 [US1] Create `WeightRecordController` with `@InitBinder` (registers `WeightRecordValidator`), `GET /owners/{ownerId}/pets/{petId}/weights/new` (show form), and `POST /owners/{ownerId}/pets/{petId}/weights/new` (save record, redirect to list on success, re-display form on validation failure); implement **only** these two endpoints — no edit or delete routes (append-only per spec Assumption) in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordController.java`
+- [x] T015 [US1] Create `createWeightRecordForm.jsp` with a form bound to `weightRecord`, fields for `weightKg` and `measurementDate` (format `yyyy/MM/dd`), and `<form:errors>` display for both fields in `src/main/webapp/WEB-INF/jsp/pets/createWeightRecordForm.jsp`
 
 **Checkpoint**: User Story 1 fully functional — weight records can be created with validation enforced.
 
@@ -69,9 +69,9 @@
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Add `GET /owners/{ownerId}/pets/{petId}/weights` handler to `WeightRecordController` that loads the pet and its weight records (via `ClinicService.findWeightRecordsByPetId`) and puts `pet` and `weightRecords` into the model in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordController.java`
-- [ ] T017 [US2] Create `weightRecordList.jsp` displaying a table of all weight records (columns: measurement date, weight in kg) ordered by date, with a "No weight history recorded yet." message when the list is empty, and an "Add Weight Record" link to the new-record form in `src/main/webapp/WEB-INF/jsp/pets/weightRecordList.jsp`
-- [ ] T018 [US2] Add a "Weight History" link on the pet detail view to navigate to `GET /owners/{ownerId}/pets/{petId}/weights` in `src/main/webapp/WEB-INF/jsp/pets/petDetails.jsp` (or equivalent pet profile JSP)
+- [x] T016 [US2] Add `GET /owners/{ownerId}/pets/{petId}/weights` handler to `WeightRecordController` that loads the pet and its weight records (via `ClinicService.findWeightRecordsByPetId`) and puts `pet` and `weightRecords` into the model in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordController.java`
+- [x] T017 [US2] Create `weightRecordList.jsp` displaying a table of all weight records (columns: measurement date, weight in kg) ordered by date, with a "No weight history recorded yet." message when the list is empty, and an "Add Weight Record" link to the new-record form in `src/main/webapp/WEB-INF/jsp/pets/weightRecordList.jsp`
+- [x] T018 [US2] Add a "Weight History" link on the pet detail view to navigate to `GET /owners/{ownerId}/pets/{petId}/weights` in `src/main/webapp/WEB-INF/jsp/pets/petDetails.jsp` (or equivalent pet profile JSP)
 
 **Checkpoint**: User Story 2 fully functional — weight history list is visible from the pet's profile.
 
@@ -85,7 +85,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Add Chart.js `<script>` tag (referencing the WebJar at `/webjars/chart.js/4.5.0/dist/chart.umd.js`) and inline JavaScript to `weightRecordList.jsp` that renders a `type: 'line'` Chart.js chart using JSTL/EL to embed `measurementDate` labels and `weightKg` data arrays; show chart when `weightRecords.size() >= 2`, show single-point message when `weightRecords.size() == 1` in `src/main/webapp/WEB-INF/jsp/pets/weightRecordList.jsp`
+- [x] T019 [US3] Add Chart.js `<script>` tag (referencing the WebJar at `/webjars/chart.js/4.5.0/dist/chart.umd.js`) and inline JavaScript to `weightRecordList.jsp` that renders a `type: 'line'` Chart.js chart using JSTL/EL to embed `measurementDate` labels and `weightKg` data arrays; show chart when `weightRecords.size() >= 2`, show single-point message when `weightRecords.size() == 1` in `src/main/webapp/WEB-INF/jsp/pets/weightRecordList.jsp`
 
 **Checkpoint**: All three user stories fully functional — weight recording, history list, and progress chart all work end-to-end.
 
@@ -95,19 +95,19 @@
 
 **Purpose**: Integration verification, edge-case hardening, and quickstart validation.
 
-- [ ] T020 [P] Verify `WeightRecordController` validates pet ownership (owner ID in path matches pet's owner) and returns 404 for mismatches in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordController.java`
-- [ ] T021 [P] Add `WeightRecord` to JPA `persistence.xml` (or equivalent ORM config) so the entity is recognized by the JPA persistence unit
-- [ ] T027 Write unit tests for `saveWeightRecord` and `findWeightRecordsByPetId` in `ClinicServiceImpl` (mock `WeightRecordRepository`; assert delegation and ordering) in `src/test/java/org/springframework/samples/petclinic/service/ClinicServiceTests.java`
-- [ ] T028 Write controller tests for `WeightRecordController` (GET list, GET new form, POST valid record → redirect, POST invalid record → form re-displayed with errors) in `src/test/java/org/springframework/samples/petclinic/web/WeightRecordControllerTests.java`
-- [ ] T029 [P] Write integration test for `JpaWeightRecordRepositoryImpl` — save and retrieve records by pet ID, assert chronological order, against H2 in `src/test/java/org/springframework/samples/petclinic/repository/JpaWeightRecordRepositoryTests.java`
-- [ ] T030 [P] Write integration test for `JdbcWeightRecordRepositoryImpl` — save and retrieve records by pet ID, assert chronological order, against H2 in `src/test/java/org/springframework/samples/petclinic/repository/JdbcWeightRecordRepositoryTests.java`
-- [ ] T031 [P] Write integration test for `SpringDataWeightRecordRepository` — save and retrieve records by pet ID, assert chronological order, against H2 in `src/test/java/org/springframework/samples/petclinic/repository/SpringDataWeightRecordRepositoryTests.java`
-- [ ] T022 Run `./mvnw test` (default H2 profile); ensure all tests pass — do not skip or suppress failing tests
-- [ ] T023 Run `./mvnw test -P jpa`; ensure all tests pass — do not skip or suppress failing tests
-- [ ] T024 Run `./mvnw test -P jdbc`; ensure all tests pass — do not skip or suppress failing tests
-- [ ] T025 Run `./mvnw test -P spring-data-jpa`; ensure all tests pass — do not skip or suppress failing tests
-- [ ] T026 Run `./mvnw jetty:run-war` and execute the quickstart.md verification steps end-to-end
-- [ ] T032 Manually verify SC-003: with 50+ weight records for a single pet, load the weight history page and confirm the Chart.js chart is visible within 2 seconds; record the result in a comment or PR description
+- [x] T020 [P] Verify `WeightRecordController` validates pet ownership (owner ID in path matches pet's owner) and returns 404 for mismatches in `src/main/java/org/springframework/samples/petclinic/web/WeightRecordController.java`
+- [x] T021 [P] Add `WeightRecord` to JPA `persistence.xml` (or equivalent ORM config) so the entity is recognized by the JPA persistence unit
+- [x] T027 Write unit tests for `saveWeightRecord` and `findWeightRecordsByPetId` in `ClinicServiceImpl` (mock `WeightRecordRepository`; assert delegation and ordering) in `src/test/java/org/springframework/samples/petclinic/service/ClinicServiceTests.java`
+- [x] T028 Write controller tests for `WeightRecordController` (GET list, GET new form, POST valid record → redirect, POST invalid record → form re-displayed with errors) in `src/test/java/org/springframework/samples/petclinic/web/WeightRecordControllerTests.java`
+- [x] T029 [P] Write integration test for `JpaWeightRecordRepositoryImpl` — save and retrieve records by pet ID, assert chronological order, against H2 in `src/test/java/org/springframework/samples/petclinic/repository/JpaWeightRecordRepositoryTests.java`
+- [x] T030 [P] Write integration test for `JdbcWeightRecordRepositoryImpl` — save and retrieve records by pet ID, assert chronological order, against H2 in `src/test/java/org/springframework/samples/petclinic/repository/JdbcWeightRecordRepositoryTests.java`
+- [x] T031 [P] Write integration test for `SpringDataWeightRecordRepository` — save and retrieve records by pet ID, assert chronological order, against H2 in `src/test/java/org/springframework/samples/petclinic/repository/SpringDataWeightRecordRepositoryTests.java`
+- [x] T022 Run `./mvnw test` (default H2 profile); ensure all tests pass — do not skip or suppress failing tests
+- [x] T023 Run `./mvnw test -P jpa`; ensure all tests pass — do not skip or suppress failing tests
+- [x] T024 Run `./mvnw test -P jdbc`; ensure all tests pass — do not skip or suppress failing tests
+- [x] T025 Run `./mvnw test -P spring-data-jpa`; ensure all tests pass — do not skip or suppress failing tests
+- [x] T026 Run `./mvnw jetty:run-war` and execute the quickstart.md verification steps end-to-end
+- [x] T032 Manually verify SC-003: with 50+ weight records for a single pet, load the weight history page and confirm the Chart.js chart is visible within 2 seconds; record the result in a comment or PR description
 
 ---
 
@@ -198,3 +198,4 @@ With two developers after Phase 2 completes:
 - The Chart.js WebJar (T001) must be in `pom.xml` before T019 can reference it in the JSP
 - Run `./mvnw test` after each phase to catch regressions early
 - Refer to `quickstart.md` for manual end-to-end verification steps
+

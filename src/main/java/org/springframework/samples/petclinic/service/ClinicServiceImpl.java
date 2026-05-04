@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.samples.petclinic.model.Owner;
@@ -23,10 +24,12 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.WeightRecord;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.repository.WeightRecordRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,12 +46,14 @@ public class ClinicServiceImpl implements ClinicService {
     private final VetRepository vetRepository;
     private final OwnerRepository ownerRepository;
     private final VisitRepository visitRepository;
+    private final Optional<WeightRecordRepository> weightRecordRepository;
 
-    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository) {
+    public ClinicServiceImpl(PetRepository petRepository, VetRepository vetRepository, OwnerRepository ownerRepository, VisitRepository visitRepository, Optional<WeightRecordRepository> weightRecordRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
+        this.weightRecordRepository = weightRecordRepository;
     }
 
     @Override
@@ -105,6 +110,18 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<WeightRecord> findWeightRecordsByPetId(int petId) {
+		return weightRecordRepository.map(repo -> repo.findByPetId(petId)).orElse(java.util.Collections.emptyList());
+	}
+
+	@Override
+	@Transactional
+	public void saveWeightRecord(WeightRecord weightRecord) {
+		weightRecordRepository.ifPresent(repo -> repo.save(weightRecord));
 	}
 
 

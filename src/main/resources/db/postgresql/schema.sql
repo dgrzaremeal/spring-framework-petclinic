@@ -82,3 +82,14 @@ CREATE TABLE IF NOT EXISTS visits (
 );
 
 ALTER SEQUENCE visits_id_seq RESTART WITH 100;
+
+CREATE TABLE IF NOT EXISTS weight_records (
+  id SERIAL,
+  pet_id INT NOT NULL,
+  weight_kg DECIMAL(6,3) NOT NULL,
+  measurement_date DATE NOT NULL,
+  FOREIGN KEY (pet_id) REFERENCES pets(id),
+  CONSTRAINT pk_weight_records PRIMARY KEY (id)
+);
+
+ALTER SEQUENCE weight_records_id_seq RESTART WITH 100;

@@ -22,6 +22,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.model.WeightRecord;
 
 
 /**
@@ -48,5 +49,9 @@ public interface ClinicService {
     Collection<Owner> findOwnerByLastName(String lastName);
 
 	Collection<Visit> findVisitsByPetId(int petId);
+
+	Collection<WeightRecord> findWeightRecordsByPetId(int petId);
+
+	void saveWeightRecord(WeightRecord weightRecord);
 
 }
