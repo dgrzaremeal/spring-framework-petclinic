@@ -1,18 +1,16 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.0.0 → 1.0.1
-Modified principles: None renamed
-Added sections: "View Layer Conventions" subsection under Technology Standards
+Version change: (unversioned template) → 1.0.0
+Modified principles: N/A (initial fill from template)
+Added sections: Core Principles (I–V), Technology Standards, Development Workflow, Governance
 Removed sections: None
 Templates requiring updates:
-  ✅ .specify/templates/plan-template.md — no structural changes needed
-  ✅ .specify/templates/spec-template.md — no structural changes needed
-  ✅ .specify/templates/tasks-template.md — no structural changes needed
+  ✅ .specify/templates/plan-template.md — Constitution Check section references this constitution; no structural changes needed
+  ✅ .specify/templates/spec-template.md — Requirements section aligns with principles; no changes needed
+  ✅ .specify/templates/tasks-template.md — Task categories (testing, observability, layering) align with principles; no changes needed
 Follow-up TODOs:
   - TODO(RATIFICATION_DATE): Exact original project adoption date unknown; set to first known commit date approximation. Verify and update if needed.
-Patch rationale: Added explicit guidance that @ModelAttribute methods exposing enum values to JSP
-  views MUST return List<EnumType> (not arrays) to avoid JSP EL type-conversion failures.
 -->
 
 # Spring PetClinic Constitution
@@ -86,29 +84,6 @@ and easy to understand for developers learning Spring.
 - **Containerization**: Google Jib MUST be used for Docker image builds; Dockerfile-based
   builds are not the primary path.
 
-### View Layer Conventions
-
-- `@ModelAttribute` methods that expose enum values to JSP views MUST return
-  `List<EnumType>` (using `Arrays.asList(EnumType.values())`), NOT a raw array
-  (`EnumType[]`). JSP EL cannot convert a Java array to `java.util.List`, causing a
-  runtime `ELException` when the view iterates the model attribute.
-
-  **Correct**:
-  ```java
-  @ModelAttribute("genders")
-  public List<Gender> populateGenders() {
-      return Arrays.asList(Gender.values());
-  }
-  ```
-
-  **Incorrect** (causes `ELException: cannot convert [...] to interface java.util.List`):
-  ```java
-  @ModelAttribute("genders")
-  public Gender[] populateGenders() {
-      return Gender.values();
-  }
-  ```
-
 ## Development Workflow
 
 - All bug reports and feature requests MUST go through the GitHub issue tracker before
@@ -138,4 +113,4 @@ All PRs and code reviews MUST verify compliance with the principles above. Compl
 violations MUST be documented in the plan's Complexity Tracking table with explicit
 justification. For runtime development guidance, refer to `README.md`.
 
-**Version**: 1.0.1 | **Ratified**: TODO(RATIFICATION_DATE): verify original adoption date | **Last Amended**: 2026-04-29
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): verify original adoption date | **Last Amended**: 2026-04-29
