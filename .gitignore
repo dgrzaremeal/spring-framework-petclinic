@@ -18,7 +18,9 @@ target/
 .DS_Store
 
 # Coding Agents
-.specify/
-.opencode/
-AGENTS.md
-requisitos.md
+# requisitos.md
+# .opencode/
+# AGENTS.md
+# .agents
+# .specify/
+# _bmad
